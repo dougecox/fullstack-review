@@ -12,11 +12,22 @@ class App extends React.Component {
     }
 
   }
+  
+  componentWillMount() {
+    $.get('/repos', (data) => {
+      console.log(data);
+      this.setState({
+        repos: data
+      });
+    });
+  }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
-  }
+    
+  $.post('/repos/import', {term : term},
+    () => { console.log('success'); } );
+   }
 
   render () {
     return (<div>
@@ -28,3 +39,5 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+    
+  
